@@ -1,5 +1,5 @@
 Orders = new Mongo.Collection('orders');
-Orders2 = new Mongo.Collection('orders2');
+
 if (Meteor.isClient) {
 
 	// Meteor.call('getOrders',function (error, result) {
@@ -12,11 +12,22 @@ if (Meteor.isClient) {
 
 	Template.home.helpers({
 		orders: function () {
-			return Orders.find({name:'#1933'}).fetch();
-			//return Session.get('data');
+			return Orders.find({gateway: "Cash on Delivery (COD)"}).fetch();			
 		}
 	});
 
+	// Template.edit.helpers({
+	// 	order: function () {
+	// 		return  Orders.findOne( {_id: Session.get('currentdata')} );
+	// 	}
+	// });
+
+
+	// Template.home.events({
+	// 	'click .view': function () {
+	// 		Session.set('currentdata', this._id );
+	// 	}
+	// });
 
 }
 
@@ -33,7 +44,24 @@ if (Meteor.isServer) {
 
 		getOrders:function(){
 
+		var api = new Shopify.API({
+		    shop: "danubedirecttest",
+		    api_key: "8709cabd05fb5def217caa8ffdf95b7f",
+		    password: "72eeb6f68efbf036471463b4662f0739"
+		});
+		var orderCount = api.countOrders();
+		var recentOpenOrders = api.getOrders();//api.getAllOrders();
 
+
+			for (var i = 0; i < orderCount; i++) {
+				 Orders.insert( recentOpenOrders[i] );
+				 console.log(i +" Done");
+			}
+
+			var added  = {
+				newfiled:"",
+			};
+			Orders2.set(added);
 		}//getOrders
 
 	});//Meteor.methods

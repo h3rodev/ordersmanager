@@ -1,70 +1,26 @@
 <template name="home">
-	<table class="table table-striped table-hover table-bordered table-condensed table-responsive">
+<table class="table table-striped table-hover table-bordered table-condensed table-responsive">
 	  <thead>
         <tr>
-          <th>Order#</th>
-          <th>First</th>
-          <th>Last</th>
-          <th>Email</th>
-          <th>Total Value</th>
-          <th>Discount<br>Code</th>
-          <th>Discount<br>Amount</th>
-          <th>Order<br>Date</th>
-          <th>Item<br>Qnt</th>
-          <th>Item<br>Code</th>
-          <th>Item<br>Price</th>
-          <th>Item<br>Name</th>
+          <th>Order</th>
+          <th>Date</th>
+          <th>Customer</th>
+          <th>Payment Status</th>
+          <th>Fullfilment Status</th>
+          <th>Total</th>
         </tr>
       </thead>
       <tbody>
 	{{#each orders}}
         <tr>
-          <th>{{name}}</th>
-          <td>{{ customer.first_name }}</td>
-          <td>{{ customer.last_name }}</td>
-          <td>{{ customer.email }}</td>
-          <td>{{ total_price }} AED</td>
-          <td>{{ discount_codes.[0].code }}</td>
-          <td>{{ discount_codes.[0].amount }} AED</td>
+          <td align="middle"><a href="/details/{{ id }}" class="view">{{name}}</a></td>
           <td>{{ created_at }}</td>
-          <td>
-          	<table class="">
-          		{{#each line_items }}
-          		<tr>
-          			<td>{{ quantity }}</td>
-          		</tr>
-          		{{/each}}
-          	</table>
-          </td>
-          <td>
-          	<table class="">
-          		{{#each line_items }}
-          		<tr>
-          			<td>{{ sku }}</td>
-          		</tr>
-          		{{/each}}
-          	</table>
-          </td>
-          <td>
-          	<table class="">
-          		{{#each line_items }}
-          		<tr>
-          			<td>{{ price }}</td>
-          		</tr>
-          		{{/each}}
-          	</table>
-          </td>
-          <td>
-          	<table class="">
-          		{{#each line_items }}
-          		<tr>
-          			<td>{{ name }}</td>
-          		</tr>
-          		{{/each}}
-          	</table>
-          </td>
+          <td>{{ billing_address.name }}</td>
+          <td>{{ financial_status }}</td>
+          <td>{{ fulfillment_status }}</td>
+          <td>{{ total_price }} AED</td>
         </tr>
 	{{/each}}
 	</tbody>
-	</table>
+</table>
 </template>

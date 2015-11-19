@@ -1,0 +1,72 @@
+<template name="details">
+	<div class="col-lg-8">
+		<section id="orderdetails">
+			<div>
+				<h3>Order details {{name}}</h3>
+			</div>
+
+			<div>
+				<table class="table">
+                    <tbody>
+                    	{{#each line_items}}
+						<tr>
+						  <td>
+						    <a href="">{{title}}</a>
+						      <p class="">SKU : {{sku}}</p>
+						  </td>
+
+						  <td width="1" class="">AED {{price}}</td>
+
+						  <td width="1">×</td>
+
+						  <td width="1">{{quantity}}</td>
+
+						  <td class="">AED {{price}}</td>
+						</tr>
+						{{/each}}
+                	</tbody>
+              	</table>
+
+              	<hr>
+
+	            <table class="" width="100%">
+					<tbody>
+
+						<tr>
+							<td class="">Subtotal</td>
+							<td>AED {{total_line_items_price}}</td>
+						</tr>
+						<tr>
+							<td class="">Shipping</td>
+							<td>{{#each shipping_lines}}AED {{ price }}{{/each}}</td>
+						</tr>
+
+						<tr class="">
+							<td>Total</td>
+							<td>AED {{ total_price }}</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<hr>
+		</section>
+	</div>
+	<div class="col-lg-4">
+		<aside>
+			<div>
+				<h3>Customer <small class="pull-right">{{ customer.orders_count }} order(s)</small></h3>
+				{{ billing_address.name }}<br>
+				<a href="mailto:{{ customer.email }}">{{ customer.email }}</a>
+			</div>
+			<hr>
+			<div>
+				<h3>Shipping address</h3>
+				<p>
+					{{shipping_address.address1}}, {{shipping_address.address2}}, {{ shipping_address.city }}, {{ shipping_address.province }}, {{shipping_address.country}}<br>{{shipping_address.phone}}
+				</p>
+			</div>
+			<div></div>
+		</aside>
+	</div>
+</template>
